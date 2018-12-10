@@ -1,0 +1,103 @@
+<!-- WHAT OUR APPLICATION WILL DO -->
+<!-- We will have a front-end either mobile app or just webpage,
+we will input our latitude, longitude, our area etc, this will be used by the mobile app to form a GET request to our API
+the APi will say i've got a GET request, i want to return list of ninjas in a json format that is within
+certain radius of the data provided and we return it to the mobile app for diaplay it on their screen to users. -->
+
+<!-- Our application will be built using express framework running on Node.js(javascript)
+just like building a flask app running on python, so once we install express using npm
+as we install flask using pip, it opens a lot of resources including http request mtds, routing etc -->
+
+<!-- REQUIREMENTS -->
+<!-- 1. Database/MongoDB
+it will store the ninjas and their properties
+2. API - Express/Node.js, the API will be built with "express", a package we can install,
+express is just a package that makes life more easier for us, so anything we do wt express,
+we can do without it only that it makes things easier.
+"npm install express --save" - this will install express & save it in our package.json file
+3. front-end/3rd party app - it will make the request, the front-end will do ffg:
+-Create a new ninja and send it to the API which will in turn store it in the Db- POST request
+so on the mobile app or webpage you will input the latitude & longitude and press SEND, it will send a GET
+request, the API will handle it and goto the database and get the resource and sent it back to the 3rd party app
+-Reading/ retrieving a list of ninjas - GET request
+-Update/ edit an existing ninja - PUT request
+-Delete a ninja from the Db - DELETE request -->
+
+<!-- OUR API ROUTES -->
+<!-- When communicating with an API, we have to make request to certain route or endpoints that the API exposes to us
+Read/retrieve a list of ninjas:
+-GET request to http://www.ninjago.com/api/ninjas-this is what the API exposes to us togo and grab the list of ninjas
+Create a new ninja:
+-POST request to http://www.ninjago.com/api/ninjas
+Update/ edit an existing ninja:
+-PUT request to http://www.ninjago.com/api/ninjas/Id
+Delete a ninja
+-DELETE request to http://www.ninjago.com/api/ninjas/Id
+ -->
+
+ <!-- WHAT HAPPENS IF WE SEND A REQUEST TO THE SAME ROUTE? -->
+ <!-- How does the express app knows whether to delete or update, read or create.
+ We use http request method to achieve this as specified in the request, we say which type?:
+ $.ajax({
+     method: "POST",
+     url: "http://www.ninjago.com/api/ninjas",
+     data: {name: "Harry", rank: "Red Belt"} 
+ })
+ $.ajax({
+    method: "GET",
+    url: "http://www.ninjago.com/api/ninjas",
+    data: {name: "Harry", rank: "Red Belt"} 
+}) , with this the server knows what to do with the request-->
+
+
+
+
+<!-- The package.json file is going to track info abt our project and all the dependencies -->
+<!-- Assuming you have television = "Application"
+Remote Control = "Interface" to interact with the tv(the app) e.g to change stations
+You need a human being to press the Remote Control
+Hence you have "Application(tv) Human Interface(Remote)" -->
+
+<!-- Incase of API -->
+
+<!-- Assuming we want to interact with YouTube(app), we want to search for a particular Video,
+so YouTube(TV) provides us with this endpoint(Interface, REMOTE) for us to interact with it:
+https://www.googleapis.com/youtube/v3/search(interface),
+instead of pressing the button of our "Remote" to interact with YouTube,
+We write a program to fetch what we want in the YouTube thru the interface(endpoints)
+provided by YouTube,instead of human doing the job, the program does it.
+Hence we have "Application Programmable Interface"
+So tv provides Remote for us to press and interact with tv.,
+While Youtube provides endpoint we can use programming code to interact with. -->
+
+<!-- REST
+REpresentational State Transfer
+It is a standard/set of guidelines by which we can structure & create API's
+It is an Architectural style of the web
+It has identifiable properties... -->
+
+<!-- what are the properties?
+1. They make use of Resource-base url
+The resource cud be a webpage like html page:
+http://www.bbcsports/football/scores, this is just a GET request to fetch this endpoint(scores)
+so instead of going to the site and navigate to the "scores" page, we write to programmable
+code to fetch it and instaed of the browser consuming(displaying) it,
+we now consume it in our own application like in pretty JSON Form.
+the "scores" is the resource we actually want and return it in a JSON form for instance -->
+
+<!-- REST PROPERTIES
+1. They make use of HTTP Methods:
+-GET- Used to retrieve data from the server
+-POST- Used to send data to the server
+-PUT- Used to Update data
+-DELETE- Used to delete data
+
+2. They make use of HTTP Status Codes:
+Examples:
+- 200 means OK
+- 400 means resource not found
+- 500 means server error -->
+
+<!-- HTTP METHODS -->
+<!-- It is a way of telling the server which type of request we are making -->
+
