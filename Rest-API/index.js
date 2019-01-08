@@ -5,9 +5,19 @@ const express = require('express');
 // import the routes file
 const routes = require('./routes/apiRoutes');
 const bodyParser = require('body-parser');
+// require mongoose to provide us wt a mtd called "connect"
+const mongoose = require('mongoose');
 // set up express app
 // when we set up the app, express provides us with bunch of http Request mtds.
 const app = express();
+// connect to db using "connect" mtd
+// "mongodb://" in the parens is a protocol just like "https://"
+mongoose.connect('mongodb://localhost/drivergo');
+//mongoose.connect( { useNewUrlParser: true });
+// overide mongoose.Promise(mongoose vesion of promise) bc its deprecated
+mongoose.Promise = global.Promise;
+/*once the req hit this middleware, it will look into the public folder and serve the file such as image, html file etc are static files, so no need going thru the whole requset to check if it is "get" or "post" etc.*/
+app.use(express.static('public'));
 
 // MIDDLEWARE
 // When req comes in and hit the express app, it hands it over to the right handler(any of the http mtd)
@@ -34,6 +44,13 @@ app.use('/api', routes);
 // });
 // listen for request thru port 4000 or port supplied by e.g. heroku in their environ variables
 // then fire a call back func once listened
+
+// Error handling Middleware
+app.use(function(err, req, res, next){
+    // console.log(err);
+    res.status(422).send({error: err.message});
+});
+
 app.listen(process.env.port || 4000, function() {
     console.log('listenening to request');
     
