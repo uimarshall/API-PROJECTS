@@ -1,5 +1,5 @@
 // index.js is our entry point in the package.json file
-// 1st we require express in this file so we can use interface.
+// 1st we require express in this file so we can use its interface.
 // "./" - means current directory
 const express = require('express');
 // import the routes file
@@ -23,6 +23,9 @@ app.use(express.static('public'));
 // When req comes in and hit the express app, it hands it over to the right handler(any of the http mtd)
 // to process, then a response will be sent thru the callback func, the diff request handlers are the "MiddleWare"
 // we fire the middleware by using "app.use(middleware)"
+// When the req comes in the body-parser looks at the body(data to be posted) of the request, parse it,
+// and attach the data to the 'req'obj which is present in the 2nd Middleware(app.use('/api', routes))
+// The handler which is present inside the middleware via the 'routes'(2nd params), the process the req and send response
 
 // put body-parser to help us parse the json data and attach it to the request obj
 // so that when we reach the route handler(midleware) it will have access to it
@@ -30,7 +33,12 @@ app.use(express.static('public'));
 // the bodyParser must come b4 the route handler(app.use('/api', routes);)in the cycle
 app.use(bodyParser.json());
 
-// initialize routes
+// MIDDLEWARE
+// When a request comes in, it hits the 'express' app, the app now looks at the request type and hands it over
+// to the right handler, the handler now process the request and sends response.The code that runs btw when
+// the request hits d app and when response is sent is called the 'Middleware'(app.use('/api', routes))
+// initialize routes which includes '/ninjas', '/ninjas/:id' in the req handlers
+// So we will hv 'localhost:4000/api/ninjas'
 app.use('/api', routes);
 // how to handle request sent by our express app
 // app.get('/api', function(req, res) {
@@ -51,7 +59,7 @@ app.use(function(err, req, res, next){
     res.status(422).send({error: err.message});
 });
 
-app.listen(process.env.port || 4000, function() {
-    console.log('listenening to request');
+app.listen(process.env.port || 3000, function() {
+    console.log('listenening to request with port 3000');
     
 }); 
