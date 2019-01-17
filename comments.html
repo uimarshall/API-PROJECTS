@@ -1,0 +1,72 @@
+<!-- Create React Component -->
+   <script type="text/babel">
+   
+    //    <!-- what the "Driver" comp will do is to "render" the "jsx(html)" thru the "return"statmnt -->
+    var Drivers = React.createClass({
+        //    set initial state
+        // when we click on submit,the state will change & fetch us the drivers
+        getInitialState: function() {
+            return({
+                drivers: []
+            });
+        },
+
+        render:function(){
+            //    once the dom re-renders, the render func has access to the "drivers" returned as json
+            var drivers = this.state.drivers;
+            drivers = drivers.map(function(driver, index) {
+                return(
+                    <li key={index}>
+                        <span className={driver.obj.available}></span>
+                        <span className="name">{driver.obj.name}</span>
+                        <span className="rank">{driver.obj.rank}</span>
+                        <span className="dist">{Math.floor(driver.dis/1000)}km</span>
+                        
+                    </li>
+                );
+            });
+            return(
+                <div id="ninja-container">
+
+                    <form id="search" onsubmit="{this.handleSubmit}">
+                        <label for="">Enter your latitude</label>
+                        <input type="text" ref="lat" placeholder="latitude" required>
+                        <label for="">Enter your longitude</label>
+                        <input type="text" ref="lng" placeholder="latitude" required>
+                        <input type="submit" value="Find Drivers">
+                    </form>
+                    <!-- output drivers in a list -->
+// we use "{}" curly braces to o/p dynamic content in React 
+                    <ul>{drivers}</ul>
+                </div>
+
+            );
+        },
+            <!-- this function will make an API call to retrieve d drivers within a certain radius specified by the user lat & lng -->
+            handleSubmit:function(e){
+                e.preventDefault():
+                // this will give us what the user input
+                // <!-- the "refs" attr makes reference to the "input" element -->
+                var lng = this.refs.lng.value;
+                var lat = this.refs.lat.value;
+                <!-- we can use these values to create a "query string" to query the server so that it can return some drivers within a certain radius(100000) to us -->
+                fetch('/api/drivers?lng=' + lng + '&lat' + lat).then(function(data){
+                    // return the data frm the api
+                    return data.json();
+                    // after receiving d data we update the state of the Comp.
+                // the "this.setState" re-renders the DOM so dat we can o/p the drivers to the "ul-list"
+                }).then(json =>{
+                    this.setState({
+                        drivers: json
+                    });
+                });
+            }
+
+
+    });
+
+   ReactDOM.render(<Drivers/>,document.getElementById('drivers')); 
+   </script>
+
+</body>
+</html>

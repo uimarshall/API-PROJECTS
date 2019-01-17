@@ -1,0 +1,19 @@
+{
+	"name": "nodeshopping-api",
+	"version": "1.0.0",
+	"description": "A Node.js RESTFul API project (Simple shopping API)",
+	"main": "app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"node",
+		"restful",
+		"api"
+	],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.16.4"
+	}
+}
